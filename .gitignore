@@ -36,3 +36,6 @@
 
 # Personal input data
 my-input.txt
+
+# Visual Studio Code Settings
+.vscode
