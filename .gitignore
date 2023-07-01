@@ -33,3 +33,6 @@
 
 # Build directory content
 /build/*
+
+# Personal input data
+my-input.txt
