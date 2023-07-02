@@ -5,3 +5,4 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_subdirectory(year-2015/day-01)
 add_subdirectory(year-2015/day-02)
+add_subdirectory(year-2015/day-03)
