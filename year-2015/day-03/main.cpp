@@ -10,6 +10,8 @@ int main(void)
     std::pair<int, int> houseCoordinates(0, 0);
     std::map<std::pair<int, int>, int> houseMap; // Tracks visited houses
 
+    houseMap.insert(std::make_pair(std::make_pair(0, 0), 1));
+
     std::fstream fin("my-input-year-2015-day-03.txt", std::fstream::in);
     while (fin >> dir)
     {
@@ -44,7 +46,7 @@ int main(void)
         }
     }
 
-    std::cout << "Answer Part One = " << houseCoordinates.first << std::endl;
+    std::cout << "Answer Part One = " << houseMap.size() << std::endl;
     std::cout << "Answer Part Two = " << houseCoordinates.second << std::endl;
 
     return 0;
