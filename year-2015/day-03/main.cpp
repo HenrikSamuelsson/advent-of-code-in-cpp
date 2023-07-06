@@ -47,7 +47,89 @@ int main(void)
     }
 
     std::cout << "Answer Part One = " << houseMap.size() << std::endl;
-    std::cout << "Answer Part Two = " << houseCoordinates.second << std::endl;
+
+    char dir2;  // Tracks the directions instructions provided by the elf
+    int xs = 0; // Tracks santa's x coordinate as he moves between houses
+    int ys = 0; // Tracks santa's y coordinate as he moves between houses
+    int xr = 0; // Tracks robosanta's x coordinate as he moves between houses
+    int yr = 0; // Tracks robosanta's y coordinate as he moves between houses
+    int m = 0;  // Tracks number of moves
+    std::pair<int, int> houseCoordinates2(0, 0);
+    std::map<std::pair<int, int>, int> houseMap2; // Tracks visited houses
+
+    houseMap2.insert(std::make_pair(std::make_pair(0, 0), 2));
+
+    std::fstream fin2("my-input-year-2015-day-03.txt", std::fstream::in);
+    while (fin2 >> dir2)
+    {
+        m++;
+        if (m % 2 == 1)
+        {
+            switch (dir2)
+            {
+            case '^':
+                ys++;
+                break;
+            case 'v':
+                ys--;
+                break;
+            case '>':
+                xs++;
+                break;
+            case '<':
+                xs--;
+                break;
+            default:
+                std::cout << "Unexpected input, terminating execution";
+                return 1;
+            }
+
+            std::map<std::pair<int, int>, int>::iterator itr2;
+            itr2 = houseMap2.find(std::make_pair(xs, ys));
+            if (itr2 != houseMap2.end())
+            {
+                itr2->second++;
+            }
+            else
+            {
+                houseMap2.insert(std::make_pair(std::make_pair(xs, ys), 1));
+            }
+        }
+        else
+        {
+             switch (dir2)
+            {
+            case '^':
+                yr++;
+                break;
+            case 'v':
+                yr--;
+                break;
+            case '>':
+                xr++;
+                break;
+            case '<':
+                xr--;
+                break;
+            default:
+                std::cout << "Unexpected input, terminating execution";
+                return 1;
+            }
+
+            std::map<std::pair<int, int>, int>::iterator itr2;
+            itr2 = houseMap2.find(std::make_pair(xr, yr));
+            if (itr2 != houseMap2.end())
+            {
+                itr2->second++;
+            }
+            else
+            {
+                houseMap2.insert(std::make_pair(std::make_pair(xr, yr), 1));
+            }
+        }
+    }
+    std::cout << "m = " << m << std::endl;
+    std::cout << "Answer Part Two = " << houseMap2.size() << std::endl;
 
     return 0;
 }
