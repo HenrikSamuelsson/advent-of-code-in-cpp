@@ -1,45 +1,50 @@
 #include <iostream>
-#include<string>
+#include <string>
 #include "md5.h"
- 
-using std::cout; using std::endl;
- 
+
+using std::cout;
+using std::endl;
+
 int main(int argc, char *argv[])
 {
     std::string input;
     cout << "Enter your puzzle input: ";
     std::getline(std::cin, input);
-    cout << "puzzleInput = " << input << endl;
 
     unsigned numberPostfix = 0;
+    unsigned answerPart1;
+    unsigned answerPart2;
+
+    std::string prefixPart1 = "00000";
+    std::string prefixPart2 = "000000";
+
     std::string hash;
-    bool match = false;
-    do {
+    bool matchPart1 = false;
+    bool matchPart2 = false;
+    
+    do
+    {
         numberPostfix++;
 
         std::string inputWithPostfix;
         inputWithPostfix = input + std::to_string(numberPostfix);
-        //cout << "input with postfix" << inputWithPostfix << endl;
-        
+
         hash = md5(inputWithPostfix);
-        //cout << "md5 hash = " << hash << endl;
-        if(numberPostfix == 609043) {
-            cout << hash << endl;
-            cout << hash[0] << endl;
-            cout << hash[1] << endl;
-            cout << (hash[2] & 0xf0) << endl;
+
+        if (!matchPart1 && hash.rfind(prefixPart1, 0) == 0)
+        {
+            matchPart1 = true;
+            answerPart1 = numberPostfix;
         }
+        if (!matchPart2 && hash.rfind(prefixPart2, 0) == 0)
+        {
+            matchPart2 = true;
+            answerPart2 = numberPostfix;
+        }
+    } while (!(matchPart1 && matchPart2));
 
-        std::string prefix = "000000";
- 
-    if (hash.rfind(prefix, 0) == 0) {
-        match = true;
-        std::cout << "String starts with the given prefix" << std::endl;
-    } 
+    cout << "Answer part 1: " << answerPart1 << endl;
+    cout << "Answer part 2: " << answerPart2 << endl;
 
-    } while (!match);//(hash[0] == 0 && hash[1] == 0 && ((char)(hash[2] & 0xf0)) == '0'));  
-    //((hash[0] != 0) && (hash[1] != 0) && ((hash[2] & 0xf0) != '0'));
-
-    cout << numberPostfix << endl; 
     return 0;
 }
