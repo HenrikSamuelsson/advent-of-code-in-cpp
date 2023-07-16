@@ -1,29 +1,48 @@
+#include <fstream>
 #include <iostream>
 #include <iterator>
-#include <string>
 #include <regex>
+#include <string>
+
+bool stringIsNice(std::string s);
 
 int main()
 {
-    std::string const text("Harry Botter");
+    std::ifstream infile("my-input.txt");
+    std::string line;
+    int numberOfNiceStrings = 0;
 
-    std::regex const anyVowel("[aeiou]+");
+    while (std::getline(infile, line))
+    {
+        if (stringIsNice(line))
+        {
+            numberOfNiceStrings++;
+        }
+    }
+    std::cout << "Solution part 1: " << numberOfNiceStrings;
+}
+
+bool stringIsNice(std::string s)
+{
+    if (std::regex_search(s, std::regex("(ab)|(cd)|(pq)|(xy)")))
+    {
+        return false;
+    }
+
+    std::regex const anyVowel("[aeiou]");
     std::ptrdiff_t const match_count(std::distance(
-        std::sregex_iterator(text.begin(), text.end(), anyVowel),
+        std::sregex_iterator(s.begin(), s.end(), anyVowel),
         std::sregex_iterator()));
-    std::cout << match_count << std::endl;
-
-    if (std::regex_search("bottle" ,std::regex("(.)\\1"))) {
-      std::cout << "string:literal => matched\n";
-    }
-    else {
-        std::cout << "string:literal did not match" << std::endl;
+    if (match_count < 3)
+    {
+        //std::cout << s << " " << match_count << std::endl;
+        return false;
     }
 
-    if (std::regex_search("bocdttle", std::regex("(ab)|(cd)|(pq)|(xy)")) ) {
-        std::cout << "string contains forbidden part" << std::endl;
-    }
-    else {
-        std::cout << "string is OK" << std::endl;
-    }
+     if (!std::regex_search(s, std::regex("(.)\\1")))
+        {
+            return false;
+        }
+       
+    return true;
 }
