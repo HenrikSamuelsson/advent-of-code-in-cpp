@@ -19,4 +19,11 @@ int main()
     else {
         std::cout << "string:literal did not match" << std::endl;
     }
+
+    if (std::regex_search("bocdttle", std::regex("(ab)|(cd)|(pq)|(xy)")) ) {
+        std::cout << "string contains forbidden part" << std::endl;
+    }
+    else {
+        std::cout << "string is OK" << std::endl;
+    }
 }
