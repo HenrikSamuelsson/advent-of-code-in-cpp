@@ -2,39 +2,27 @@
 #include <iterator>
 #include <string>
 #include <regex>
- 
+
 int main()
 {
-    std::string s = "Some people, when confronted with a problem, think "
-        "\"I know, I'll use regular expressions.\" "
-        "Now they have two problems.";
- 
-    std::regex self_regex("REGULAR EXPRESSIONS",
-            std::regex_constants::ECMAScript | std::regex_constants::icase);
-    if (std::regex_search(s, self_regex)) {
-        std::cout << "Text contains the phrase 'regular expressions'\n";
+    std::string const text("Harry Botter");
+
+    std::regex const anyVowel("[aeiou]+");
+    std::ptrdiff_t const match_count(std::distance(
+        std::sregex_iterator(text.begin(), text.end(), anyVowel),
+        std::sregex_iterator()));
+    std::cout << match_count << std::endl;
+
+    std::regex const doubleLetter("(.)\1");
+    if (std::regex_search(text, doubleLetter)) {
+        std::cout << "doubleLetter" << std::endl;
     }
- 
-    std::regex word_regex("(\\w+)");
-    auto words_begin = 
-        std::sregex_iterator(s.begin(), s.end(), word_regex);
-    auto words_end = std::sregex_iterator();
- 
-    std::cout << "Found "
-              << std::distance(words_begin, words_end)
-              << " words\n";
- 
-    const int N = 6;
-    std::cout << "Words longer than " << N << " characters:\n";
-    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
-        std::smatch match = *i;
-        std::string match_str = match.str();
-        if (match_str.size() > N) {
-            std::cout << "  " << match_str << '\n';
-        }
+
+    //if (std::regex_match ("bottle", std::regex("(.)\1") ))
+    if (std::regex_search("botle" ,std::regex("(.)\\1"))) {
+      std::cout << "string:literal => matched\n";
     }
- 
-    std::regex long_word_regex("(\\w{7,})");
-    std::string new_s = std::regex_replace(s, long_word_regex, "[$&]");
-    std::cout << new_s << '\n';
+    else {
+        std::cout << "string:literal did not match" << std::endl;
+    }
 }
