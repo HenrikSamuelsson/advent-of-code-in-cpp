@@ -7,7 +7,6 @@ int main(void)
     char dir;  // Tracks the directions instructions provided by the elf
     int x = 0; // Tracks santa's x coordinate as he moves between houses
     int y = 0; // Tracks santa's y coordinate as he moves between houses
-    std::pair<int, int> houseCoordinates(0, 0);
     std::map<std::pair<int, int>, int> houseMap; // Tracks visited houses
 
     houseMap.insert(std::make_pair(std::make_pair(0, 0), 1));
@@ -51,10 +50,9 @@ int main(void)
     char dir2;  // Tracks the directions instructions provided by the elf
     int xs = 0; // Tracks santa's x coordinate as he moves between houses
     int ys = 0; // Tracks santa's y coordinate as he moves between houses
-    int xr = 0; // Tracks robosanta's x coordinate as he moves between houses
-    int yr = 0; // Tracks robosanta's y coordinate as he moves between houses
+    int xr = 0; // Tracks robot-santa's x coordinate as it moves between houses
+    int yr = 0; // Tracks robot-santa's y coordinate as it moves between houses
     int m = 0;  // Tracks number of moves
-    std::pair<int, int> houseCoordinates2(0, 0);
     std::map<std::pair<int, int>, int> houseMap2; // Tracks visited houses
 
     houseMap2.insert(std::make_pair(std::make_pair(0, 0), 2));
